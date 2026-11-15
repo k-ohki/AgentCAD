@@ -1,0 +1,178 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "agentcad:format" = "agentcad.assembly/1"
+    }
+    defaultPrim = "Assembly"
+    metersPerUnit = 0.001
+    upAxis = "Y"
+)
+
+def Xform "Assembly" (
+    kind = "assembly"
+)
+{
+    custom string agentcad:definition = "{\"format\":\"agentcad.assembly/1\",\"seq\":7,\"variables\":{},\"components\":{\"RearHousing<1>\":{\"id\":\"RearHousing<1>\",\"source\":\"./RearHousing.usda\",\"position\":[0.0,0.0,-110.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Bearing_6001<1>\":{\"id\":\"Bearing_6001<1>\",\"source\":\"./Bearing_6001.usda\",\"position\":[0.0,0.0,-72.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"SunGear<1>\":{\"id\":\"SunGear<1>\",\"source\":\"./SunGear.usda\",\"position\":[0.0,0.0,-12.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Key_4x4<1>\":{\"id\":\"Key_4x4<1>\",\"source\":\"./Key_4x4.usda\",\"position\":[0.0,14.0,-12.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"RingGear<1>\":{\"id\":\"RingGear<1>\",\"source\":\"./RingGear.usda\",\"position\":[0.0,0.0,22.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"PlanetGear<1>\":{\"id\":\"PlanetGear<1>\",\"source\":\"./PlanetGear.usda\",\"position\":[33.0,0.0,78.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"PlanetGear<2>\":{\"id\":\"PlanetGear<2>\",\"source\":\"./PlanetGear.usda\",\"position\":[-16.499999999999993,28.57883832488648,78.0],\"rotation\":[0.5000000000000001,0.0,0.0,0.8660254037844386],\"fixed\":false},\"PlanetGear<3>\":{\"id\":\"PlanetGear<3>\",\"source\":\"./PlanetGear.usda\",\"position\":[-16.500000000000007,-28.578838324886465,78.0],\"rotation\":[-0.49999999999999983,0.0,0.0,0.8660254037844387],\"fixed\":false},\"Carrier<1>\":{\"id\":\"Carrier<1>\",\"source\":\"./Carrier.usda\",\"position\":[0.0,0.0,128.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Key_6x6<1>\":{\"id\":\"Key_6x6<1>\",\"source\":\"./Key_6x6.usda\",\"position\":[0.0,16.0,128.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Cover<1>\":{\"id\":\"Cover<1>\",\"source\":\"./Cover.usda\",\"position\":[0.0,0.0,212.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Bearing_6004<1>\":{\"id\":\"Bearing_6004<1>\",\"source\":\"./Bearing_6004.usda\",\"position\":[0.0,0.0,250.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Bolt_M6<1>\":{\"id\":\"Bolt_M6<1>\",\"source\":\"./Bolt_M6.usda\",\"position\":[58.0,0.0,302.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Bolt_M6<2>\":{\"id\":\"Bolt_M6<2>\",\"source\":\"./Bolt_M6.usda\",\"position\":[29.000000000000007,50.22947341949744,302.0],\"rotation\":[0.8660254037844387,0.0,0.0,0.49999999999999994],\"fixed\":false},\"Bolt_M6<3>\":{\"id\":\"Bolt_M6<3>\",\"source\":\"./Bolt_M6.usda\",\"position\":[-28.999999999999986,50.22947341949745,302.0],\"rotation\":[0.5000000000000001,0.0,0.0,0.8660254037844386],\"fixed\":false},\"Bolt_M6<4>\":{\"id\":\"Bolt_M6<4>\",\"source\":\"./Bolt_M6.usda\",\"position\":[-58.0,7.102951435054649e-15,302.0],\"rotation\":[6.123233995736766e-17,0.0,0.0,1.0],\"fixed\":false},\"Bolt_M6<5>\":{\"id\":\"Bolt_M6<5>\",\"source\":\"./Bolt_M6.usda\",\"position\":[-29.000000000000014,-50.22947341949743,302.0],\"rotation\":[-0.49999999999999983,0.0,0.0,0.8660254037844387],\"fixed\":false},\"Bolt_M6<6>\":{\"id\":\"Bolt_M6<6>\",\"source\":\"./Bolt_M6.usda\",\"position\":[29.000000000000007,-50.22947341949744,302.0],\"rotation\":[-0.8660254037844387,0.0,0.0,0.49999999999999994],\"fixed\":false}},\"mates\":{\"Mate1\":{\"type\":\"lock\",\"refs\":[[\"PlanetGear<1>\",\"\"],[\"PlanetGear<2>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[-49.49999999999999,28.57883832488648,0.0,-0.4999999999999998,0.8660254037844388,0.0,-0.8660254037844388,-0.4999999999999998,0.0,0.0,0.0,1.0]},\"Mate2\":{\"type\":\"lock\",\"refs\":[[\"PlanetGear<1>\",\"\"],[\"PlanetGear<3>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[-49.50000000000001,-28.578838324886465,0.0,-0.5000000000000002,-0.8660254037844384,0.0,0.8660254037844384,-0.5000000000000002,0.0,0.0,0.0,1.0]},\"Mate3\":{\"type\":\"lock\",\"refs\":[[\"Bolt_M6<1>\",\"\"],[\"Bolt_M6<2>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[-28.999999999999993,50.22947341949744,0.0,0.5000000000000001,0.8660254037844386,0.0,-0.8660254037844386,0.5000000000000001,0.0,0.0,0.0,1.0]},\"Mate4\":{\"type\":\"lock\",\"refs\":[[\"Bolt_M6<1>\",\"\"],[\"Bolt_M6<3>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[-86.99999999999999,50.22947341949745,0.0,-0.4999999999999998,0.8660254037844388,0.0,-0.8660254037844388,-0.4999999999999998,0.0,0.0,0.0,1.0]},\"Mate5\":{\"type\":\"lock\",\"refs\":[[\"Bolt_M6<1>\",\"\"],[\"Bolt_M6<4>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[-116.0,7.102951435054649e-15,0.0,-1.0,1.2246467991473532e-16,0.0,-1.2246467991473532e-16,-1.0,0.0,0.0,0.0,1.0]},\"Mate6\":{\"type\":\"lock\",\"refs\":[[\"Bolt_M6<1>\",\"\"],[\"Bolt_M6<5>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[-87.00000000000001,-50.22947341949743,0.0,-0.5000000000000002,-0.8660254037844384,0.0,0.8660254037844384,-0.5000000000000002,0.0,0.0,0.0,1.0]},\"Mate7\":{\"type\":\"lock\",\"refs\":[[\"Bolt_M6<1>\",\"\"],[\"Bolt_M6<6>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[-28.999999999999993,-50.22947341949744,0.0,0.5000000000000001,-0.8660254037844386,0.0,0.8660254037844386,0.5000000000000001,0.0,0.0,0.0,1.0]}}}"
+
+    def Xform "RearHousing_1" (
+        prepend references = @./RearHousing.usda@
+    )
+    {
+        custom string agentcad:component = "RearHousing<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, -110, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Bearing_6001_1" (
+        prepend references = @./Bearing_6001.usda@
+    )
+    {
+        custom string agentcad:component = "Bearing_6001<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, -72, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "SunGear_1" (
+        prepend references = @./SunGear.usda@
+    )
+    {
+        custom string agentcad:component = "SunGear<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, -12, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Key_4x4_1" (
+        prepend references = @./Key_4x4.usda@
+    )
+    {
+        custom string agentcad:component = "Key_4x4<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 14, -12, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "RingGear_1" (
+        prepend references = @./RingGear.usda@
+    )
+    {
+        custom string agentcad:component = "RingGear<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 22, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "PlanetGear_1" (
+        prepend references = @./PlanetGear.usda@
+    )
+    {
+        custom string agentcad:component = "PlanetGear<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (33, 0, 78, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "PlanetGear_2" (
+        prepend references = @./PlanetGear.usda@
+    )
+    {
+        custom string agentcad:component = "PlanetGear<2>"
+        matrix4d xformOp:transform = ( (-0.5, 0.866025404, 0, 0), (-0.866025404, -0.5, 0, 0), (0, 0, 1, 0), (-16.5, 28.578838325, 78, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "PlanetGear_3" (
+        prepend references = @./PlanetGear.usda@
+    )
+    {
+        custom string agentcad:component = "PlanetGear<3>"
+        matrix4d xformOp:transform = ( (-0.5, -0.866025404, 0, 0), (0.866025404, -0.5, 0, 0), (0, 0, 1, 0), (-16.5, -28.578838325, 78, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Carrier_1" (
+        prepend references = @./Carrier.usda@
+    )
+    {
+        custom string agentcad:component = "Carrier<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 128, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Key_6x6_1" (
+        prepend references = @./Key_6x6.usda@
+    )
+    {
+        custom string agentcad:component = "Key_6x6<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 16, 128, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Cover_1" (
+        prepend references = @./Cover.usda@
+    )
+    {
+        custom string agentcad:component = "Cover<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 212, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Bearing_6004_1" (
+        prepend references = @./Bearing_6004.usda@
+    )
+    {
+        custom string agentcad:component = "Bearing_6004<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 250, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Bolt_M6_1" (
+        prepend references = @./Bolt_M6.usda@
+    )
+    {
+        custom string agentcad:component = "Bolt_M6<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (58, 0, 302, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Bolt_M6_2" (
+        prepend references = @./Bolt_M6.usda@
+    )
+    {
+        custom string agentcad:component = "Bolt_M6<2>"
+        matrix4d xformOp:transform = ( (0.5, 0.866025404, 0, 0), (-0.866025404, 0.5, 0, 0), (0, 0, 1, 0), (29, 50.229473419, 302, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Bolt_M6_3" (
+        prepend references = @./Bolt_M6.usda@
+    )
+    {
+        custom string agentcad:component = "Bolt_M6<3>"
+        matrix4d xformOp:transform = ( (-0.5, 0.866025404, 0, 0), (-0.866025404, -0.5, 0, 0), (0, 0, 1, 0), (-29, 50.229473419, 302, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Bolt_M6_4" (
+        prepend references = @./Bolt_M6.usda@
+    )
+    {
+        custom string agentcad:component = "Bolt_M6<4>"
+        matrix4d xformOp:transform = ( (-1, 0, 0, 0), (-0, -1, 0, 0), (0, 0, 1, 0), (-58, 0, 302, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Bolt_M6_5" (
+        prepend references = @./Bolt_M6.usda@
+    )
+    {
+        custom string agentcad:component = "Bolt_M6<5>"
+        matrix4d xformOp:transform = ( (-0.5, -0.866025404, 0, 0), (0.866025404, -0.5, 0, 0), (0, 0, 1, 0), (-29, -50.229473419, 302, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Bolt_M6_6" (
+        prepend references = @./Bolt_M6.usda@
+    )
+    {
+        custom string agentcad:component = "Bolt_M6<6>"
+        matrix4d xformOp:transform = ( (0.5, -0.866025404, 0, 0), (0.866025404, 0.5, 0, 0), (0, 0, 1, 0), (29, -50.229473419, 302, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+}
