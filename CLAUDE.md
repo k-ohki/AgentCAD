@@ -19,7 +19,7 @@
   Write ツールでファイルに書いてから実行する（Windows のパス・正規表現・JSON で事故が起きた）
 
 ## 引き継ぎ（2026-11-14 時点）
-- 状態: D1〜D73 実装済み。`cd core && python -m pytest -q` で 242 passed, 3 skipped（usd-brep あり）、`scripts/ui_smoke.py` も OK
+- 状態: D1〜D73 実装済み。`cd core && python -m pytest -q` で 243 passed, 3 skipped（usd-brep あり）、`scripts/ui_smoke.py` も OK
 - 利用者の確認待ち: DXF の日本語（D60）、実際の AI の API（D67）、デスクトップ版での「動かしてみる」の体感と「その他の色…」（D69・D70）
 - ファイルの読み込み・書き出し（STL・3MF・OBJ。D71）を実装。**利用者の確認待ち**: 実際のスライサ・Blender で開けるか、
   手元の STL を開いたときの面の分かれ方。STEP は usd-brep では不可（PLAN.md 6.0）

@@ -5,16 +5,38 @@ import numpy as np
 
 
 def chain(segments) -> np.ndarray:
-    """エッジの線分（(k, 2, 3)）をつないだ折れ線の点列。順番どおりでなくても、つながる線分を探してつなぐ。"""
+    """エッジの線分（(k, 2, 3)）をつないだ折れ線の点列。順番どおりでなくても、つながる線分を探してつなぐ。
+
+    最初の線分から始め、末尾にいちばん近い線分（同じ距離なら番号の小さいもの）を順に足す。端点がちょうど一致する線分は
+    表で引き（テッセレーションの線分は端点を共有する）、無いときだけ全部から探す。"""
     S = np.asarray(segments, float).reshape(-1, 2, 3)
     if not len(S):
         raise ValueError("エッジの形を取れません")
+    n = len(S)
+    T = S.tolist()
+    ends: dict[tuple, list[int]] = {}                 # 端点 → その端点を持つ線分（番号の小さい順）
+    for j in range(1, n):
+        ends.setdefault(tuple(T[j][0]), []).append(j)
+        if T[j][1] != T[j][0]:
+            ends.setdefault(tuple(T[j][1]), []).append(j)
+    alive = np.ones(n, bool)
+    alive[0] = False
     out = [S[0, 0], S[0, 1]]
-    rest = list(S[1:])
-    while rest:
+    for _ in range(n - 1):
         tail = out[-1]
-        i = min(range(len(rest)), key=lambda j: min(np.linalg.norm(rest[j][0] - tail), np.linalg.norm(rest[j][1] - tail)))
-        a, b = rest.pop(i)
+        j = None
+        lst = ends.get(tuple(tail.tolist()))
+        if lst:
+            while lst and not alive[lst[0]]:
+                lst.pop(0)
+            if lst:
+                j = lst[0]
+        if j is None:
+            idx = np.flatnonzero(alive)
+            d = np.minimum(np.linalg.norm(S[idx, 0] - tail, axis=1), np.linalg.norm(S[idx, 1] - tail, axis=1))
+            j = int(idx[int(np.argmin(d))])
+        alive[j] = False
+        a, b = S[j]
         out.append(b if np.linalg.norm(a - tail) <= np.linalg.norm(b - tail) else a)
     return np.asarray(out)
 

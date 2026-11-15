@@ -232,3 +232,19 @@ def test_notes(part, tmp_path):
     assert [x["text"] for x in st["dims"] if x["kind"] == "note"] == ["LDK"]
     st = api.call("drw.delete", {"doc": st["doc"], "ids": [nid]})
     assert not st["dims"]
+
+
+def test_chain_shuffled_segments():
+    """エッジの線分を順不同・逆向きで渡しても元の折れ線になる（表で引く版の chain。離れた線分は最寄りでつなぐ）。"""
+    import numpy as np
+    from cad.geom import chain
+    rng = np.random.default_rng(0)
+    P = np.cumsum(rng.normal(size=(30, 3)), 0)
+    S = np.stack([P[:-1], P[1:]], 1)
+    order = np.concatenate([[0], rng.permutation(np.arange(1, 29))])
+    S = S[order]
+    S[5] = S[5][::-1]
+    assert np.array_equal(chain(S), P)
+    S2 = S.copy()
+    S2[3] += 1e-3                                       # つながらない線分があっても全部使う
+    assert len(chain(S2)) == 30

@@ -68,6 +68,7 @@ class DrawingDocument(History):
         self.dims: dict[str, dict] = {}
         self._seq = 0
         self._cache: dict[tuple, tuple[object, ViewGeometry]] = {}
+        self._poly: tuple[object, dict[int, np.ndarray]] | None = None    # (形の印, エッジの番号 → 折れ線)
 
     # ------------------------------------------------------------ 保存・Undo
     def to_dict(self) -> dict:
@@ -110,6 +111,18 @@ class DrawingDocument(History):
         if m is None:
             raise DrawingError("モデルにボディがありません")
         return m
+
+    def edge_polyline(self, name: str):
+        """エッジ（永続名）の折れ線（ワールド座標）。無ければ None。全エッジの折れ線は形が変わるまで使い回す
+        （寸法の位置は描くたびに解決するので、毎回つなぎ直すとアセンブリの図面で 1 回数秒かかっていた）。"""
+        token, m = self.mesh_of(self.model)
+        if m is None:
+            raise DrawingError("モデルにボディがありません")
+        if name not in m["edge_names"]:
+            return None
+        if self._poly is None or self._poly[0] is not token:
+            self._poly = (token, edge_polylines(m))
+        return self._poly[1].get(m["edge_names"].index(name))
 
     def geometry(self, view: dict) -> ViewGeometry:
         token, m = self.mesh_of(self.model)
@@ -260,11 +273,7 @@ class DrawingDocument(History):
         F = np.stack([view["R"], view["U"]], 1)
         hint = np.asarray(anchor.get("hint") or [0, 0, 0], float)
         base, _, at = anchor["src"].partition("@")
-        m = self.mesh()
-        name = base[5:]
-        if name not in m["edge_names"]:
-            return hint @ F, False
-        P = edge_polylines(m).get(m["edge_names"].index(name))
+        P = self.edge_polyline(base[5:])
         if P is None:
             return hint @ F, False
         if at == "vertex":
@@ -283,11 +292,7 @@ class DrawingDocument(History):
 
     def circle_of(self, view: dict, src: str):
         """円・円弧のエッジ（"edge:名前"）の (中心（ビュー座標）, 半径, 閉じているか)。正面を向いていなければ None。"""
-        m = self.mesh()
-        name = src.partition("@")[0][5:]
-        if name not in m["edge_names"]:
-            return None
-        P = edge_polylines(m).get(m["edge_names"].index(name))
+        P = self.edge_polyline(src.partition("@")[0][5:])
         c = fit_circle(P) if P is not None else None
         if c is None:
             return None
