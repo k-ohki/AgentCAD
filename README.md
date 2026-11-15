@@ -18,6 +18,23 @@ the usd-brep kernel. Python core, dependency-free WebGL2 UI, optional Tauri desk
 シェル・パターン・ミラー、式と変数、外観（色）、断面表示、アセンブリ（合致・干渉チェック・動かしてみる）、2 次元図面（PDF・DXF）、
 AI アシスタント（Claude / OpenAI 互換の API で、自然な言葉でモデルを作る・操作する）。
 
+作例（画像をクリックすると大きく表示）:
+
+<table>
+<tr>
+<td><a href="docs/images/mansion.png"><img src="docs/images/mansion.png" width="200" alt="外階段つきのマンションの 3D モデル"></a></td>
+<td><a href="docs/images/mansion_drawing.png"><img src="docs/images/mansion_drawing.png" width="200" alt="マンションの住棟の 2 次元図面"></a></td>
+<td><a href="docs/images/unit_3d.png"><img src="docs/images/unit_3d.png" width="200" alt="住戸の 3D 見取り図"></a></td>
+<td><a href="docs/images/unit_drawing.png"><img src="docs/images/unit_drawing.png" width="200" alt="住戸の平面図"></a></td>
+</tr>
+<tr>
+<td>マンション（6 階建て）。階段は 1 層分のパートを部品パターンで 6 層に</td>
+<td>住棟の図面（アセンブリから投影し、寸法を入れたもの）</td>
+<td>住戸（2LDK）の 3D 見取り図。躯体・床・住設・家具の 4 パート</td>
+<td>住戸の平面図（寸法と、注記で室名・畳数）</td>
+</tr>
+</table>
+
 - 計画: [docs/PLAN.md](docs/PLAN.md)
 - 仕様: [docs/SPEC.md](docs/SPEC.md)
 - 設計判断: [docs/DECISIONS.md](docs/DECISIONS.md)
