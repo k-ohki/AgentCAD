@@ -1,18 +1,14 @@
 # AgentCAD
 
+[English](README.md) | **日本語**
+
 > **注意: 個人用に作ったプロジェクトです。** 作者が自分で使うために作ったもので、今後の更新・不具合修正・
-> Issue や Pull Request への対応は期待しないでください。そのまま参考にしたり、フォークして自由に使ってください。
->
-> *This is a personal project built for my own use. Please do not expect updates, bug fixes, or responses to
-> issues/pull requests. Feel free to fork it and use it as you like (MIT License).*
+> Issue や Pull Request への対応は期待しないでください。そのまま参考にしたり、フォークして自由に使ってください（MIT ライセンス）。
 
 パラメトリック 3D CAD（個人で開発している実験的なプロジェクト）。
 スケッチの拘束ソルバ・フィーチャーツリー・アセンブリの合致を自前で実装し、形状演算（BRep）は
 [usd-brep](https://pypi.org/project/usd-brep/) に任せています。UI は自作の WebGL2（外部ライブラリなし）、ロジックは Python、
 デスクトップ版は Tauri。保存形式は OpenUSD（`.usda`）。
-
-*A parametric 3D CAD written from scratch (sketch constraint solver, feature tree, assembly mates) on top of
-the usd-brep kernel. Python core, dependency-free WebGL2 UI, optional Tauri desktop shell. Documentation is in Japanese.*
 
 主な機能: スケッチ（拘束・スマート寸法・推測とスナップ）、押し出し / カット・回転・スイープ・穴ウィザード・フィレット・面取り・
 シェル・パターン・ミラー、式と変数、外観（色）、断面表示、アセンブリ（合致・干渉チェック・動かしてみる）、2 次元図面（PDF・DXF）、
@@ -36,19 +32,21 @@ AI アシスタント（Claude / OpenAI 互換の API で、自然な言葉で�
 <tr>
 <td><a href="docs/images/robot.png"><img src="docs/images/robot.png" width="100" alt="小型の人型ロボットの 3D モデル"></a></td>
 <td><a href="docs/images/robot_drawing.png"><img src="docs/images/robot_drawing.png" width="200" alt="人型ロボットの組立図"></a></td>
-<td colspan="2"></td>
+<td><a href="docs/images/gearbox.png"><img src="docs/images/gearbox.png" width="200" alt="遊星歯車減速機の分解図"></a></td>
+<td><a href="docs/images/gearbox_drawing.png"><img src="docs/images/gearbox_drawing.png" width="200" alt="遊星歯車減速機の組立図"></a></td>
 </tr>
 <tr>
 <td>小型の人型ロボット（全高 488 mm）。サーボ 10 個は同じパートを 10 回使う</td>
 <td>ロボットの組立図（4 つのビュー・寸法・部品表）</td>
-<td colspan="2"></td>
+<td>遊星歯車減速機（減速比 3.67）の分解図。歯形はインボリュート曲線、遊星とボルトは円形パターン</td>
+<td>減速機の組立図（隠線つきの側面図・直径寸法・歯車の諸元・部品表）</td>
 </tr>
 </table>
 
 ※ 作例はすべて AI エージェントがこのアプリの API を使って生成したもので、**設計として実用レベルではありません**
 （寸法・構造・部品の構成は見た目のための仮のもので、強度・可動範囲・施工などは検討していません）。
 モデル（`.usda`）・図面・生成スクリプト・スクリーンショットはサンプルとして [Data/](Data/) に置いています
-（`Mansion`・`Unit`・`Robot`。各フォルダの `build_*.py` を `core` から実行すると作り直せます）。
+（`Mansion`・`Unit`・`Robot`・`Gearbox`。各フォルダの `build_*.py` を `core` から実行すると作り直せます）。
 
 - 計画: [docs/PLAN.md](docs/PLAN.md)
 - 仕様: [docs/SPEC.md](docs/SPEC.md)
@@ -115,7 +113,7 @@ python -m pytest core\tests\test_kernel_conformance.py core\tests\test_part_real
 | 計測・質量特性 | 評価のタブ。計測は面・エッジ・頂点をクリック（2 つで距離・角度）、Esc で終了 |
 | アセンブリの道具 | アセンブリのタブ: 直線 / 円形パターン（部品）・干渉チェック。部品の一覧の ⧉ で複製、合致の一覧で名前をクリックすると合致を編集 |
 | スイープ | 経路のスケッチ（つながった線・円弧）と、経路の始点に垂直な断面のスケッチ（閉じた輪郭）を描く → 断面のスケッチを選んで「スイープ」→ ✓。カットは右のパネルの操作で |
-| 図面 | パートを開いて 新規 ▾ → 図面（標準 3 面図つき）。図面のタブ: モデルビュー・投影図・スマート寸法・PDF 出力・DXF（用紙どおり / 実寸 1:1）。縮尺・用紙は右のパネル。ビューはドラッグで移動、ホイールで拡大 |
+| 図面 | パートかアセンブリを開いて 新規 ▾ → 図面（標準 3 面図つき）。図面のタブ: モデルビュー・投影図・スマート寸法・注記・PDF 出力・DXF（用紙どおり / 実寸 1:1）。縮尺・用紙は右のパネル。ビューはドラッグで移動、ホイールで拡大 |
 | 穴ウィザード | 面を選んで「穴ウィザード」→ 穴の位置に点を置く → スケッチ終了 → 右のパネルで種類（ザグリ・皿・キリ・ねじ下穴・ドリル）とサイズ（M2〜M20）→ ✓ |
 | ほかのスケッチ | 使っていないスケッチは表示、ツリーで選んだスケッチは必ず表示。右クリックで表示 / 非表示。スケッチ中はその点・線にスナップ（参照先に追従） |
 | 合致 | アセンブリで「📎 合致」→ 面を 2 つクリック → 部品が動く → ポップアップで種類・値・整列 → ✓（続けて次）/ ✗。終わるときは右の ✓ |

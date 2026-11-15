@@ -13,7 +13,7 @@
   場所は PC ごとに違うので、最初に利用者に聞くか探す。usd-brep が入っていれば実カーネルのテスト
   （`test_part_real_kernel.py`・`test_kernel_conformance.py`）も自動で走る
 - Tauri: `cd app` → `npm install` → `npm run tauri dev`（Python の場所は `agentcad.config.json`）。Rust の変更はその場でビルドして確かめる
-- 公開しない手元のもの（.gitignore 済み）: `Data/` の中の作業データ（写真から作った装置のモデルなど。作例の `Data/Mansion`・`Unit`・`Robot` だけは公開する）、`memo.txt`、
+- 公開しない手元のもの（.gitignore 済み）: `Data/` の中の作業データ（写真から作った装置のモデルなど。作例の `Data/Mansion`・`Unit`・`Robot`・`Gearbox` だけは公開する）、`memo.txt`、
   `*.bundle`、`*.lnk`、`agentcad.config.json`、`app/package-lock.json`
 - Git Bash の注意: ヒアドキュメント（`<<'EOF'`）の中でも `\\` が `\` に縮むことがある。バックスラッシュを含む Python は
   Write ツールでファイルに書いてから実行する（Windows のパス・正規表現・JSON で事故が起きた）
@@ -109,6 +109,7 @@ run.bat            利用者用の起動（cd core && python -m cad.api）
 - 新しい判断は `docs/DECISIONS.md` に D 番号を振って追記。計画と変更履歴は `docs/PLAN.md`
 - 利用者への説明は日本語で簡潔に（利用者の希望）。報告には「確認できたこと / できていないこと」を明記する
 - 起動・ビルド用のバッチファイルや便利スクリプト・インストーラは作らない（利用者がコマンドを打つ。手順は README に書く）
+- README は英語版（`README.md`。GitHub で最初に出る）と日本語版（`README.ja.md`）の 2 つ。片方を変えたらもう片方も同じ内容に直す
 - 利用者に試してもらう手順は Windows のコマンドで書く。画面出力を `>` でファイルに向けない（スクリプトは自分でレポートを書く）
 
 ## よく使う入口
