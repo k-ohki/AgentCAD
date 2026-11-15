@@ -33,7 +33,22 @@ AI アシスタント（Claude / OpenAI 互換の API で、自然な言葉で�
 <td>住戸（2LDK）の 3D 見取り図。躯体・床・住設・家具の 4 パート</td>
 <td>住戸の平面図（寸法と、注記で室名・畳数）</td>
 </tr>
+<tr>
+<td><a href="docs/images/robot.png"><img src="docs/images/robot.png" width="100" alt="小型の人型ロボットの 3D モデル"></a></td>
+<td><a href="docs/images/robot_drawing.png"><img src="docs/images/robot_drawing.png" width="200" alt="人型ロボットの組立図"></a></td>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td>小型の人型ロボット（全高 488 mm）。サーボ 10 個は同じパートを 10 回使う</td>
+<td>ロボットの組立図（4 つのビュー・寸法・部品表）</td>
+<td colspan="2"></td>
+</tr>
 </table>
+
+※ 作例はすべて AI エージェントがこのアプリの API を使って生成したもので、**設計として実用レベルではありません**
+（寸法・構造・部品の構成は見た目のための仮のもので、強度・可動範囲・施工などは検討していません）。
+モデル（`.usda`）・図面・生成スクリプト・スクリーンショットはサンプルとして [Data/](Data/) に置いています
+（`Mansion`・`Unit`・`Robot`。各フォルダの `build_*.py` を `core` から実行すると作り直せます）。
 
 - 計画: [docs/PLAN.md](docs/PLAN.md)
 - 仕様: [docs/SPEC.md](docs/SPEC.md)

@@ -10,7 +10,10 @@ Cargo.lock
 app/src-tauri/gen/
 
 # 利用者の手元だけのもの（公開しない）
-Data/
+Data/*
+!Data/Mansion/
+!Data/Robot/
+!Data/Unit/
 *.bundle
 *.lnk
 memo.txt

@@ -1,0 +1,52 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "agentcad:format" = "agentcad.assembly/1"
+    }
+    defaultPrim = "Assembly"
+    metersPerUnit = 0.001
+    upAxis = "Y"
+)
+
+def Xform "Assembly" (
+    kind = "assembly"
+)
+{
+    custom string agentcad:definition = "{\"format\":\"agentcad.assembly/1\",\"seq\":9,\"variables\":{},\"components\":{\"Shell<1>\":{\"id\":\"Shell<1>\",\"source\":\"./Shell.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Floors<1>\":{\"id\":\"Floors<1>\",\"source\":\"./Floors.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"Fixtures<1>\":{\"id\":\"Fixtures<1>\",\"source\":\"./Fixtures.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"Furniture<1>\":{\"id\":\"Furniture<1>\",\"source\":\"./Furniture.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false}},\"mates\":{\"Mate1\":{\"type\":\"coincident\",\"refs\":[[\"Shell<1>\",\"Top\"],[\"Floors<1>\",\"Top\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate2\":{\"type\":\"coincident\",\"refs\":[[\"Shell<1>\",\"Front\"],[\"Floors<1>\",\"Front\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate3\":{\"type\":\"coincident\",\"refs\":[[\"Shell<1>\",\"Right\"],[\"Floors<1>\",\"Right\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate4\":{\"type\":\"coincident\",\"refs\":[[\"Shell<1>\",\"Top\"],[\"Fixtures<1>\",\"Top\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate5\":{\"type\":\"coincident\",\"refs\":[[\"Shell<1>\",\"Front\"],[\"Fixtures<1>\",\"Front\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate6\":{\"type\":\"coincident\",\"refs\":[[\"Shell<1>\",\"Right\"],[\"Fixtures<1>\",\"Right\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate7\":{\"type\":\"coincident\",\"refs\":[[\"Shell<1>\",\"Top\"],[\"Furniture<1>\",\"Top\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate8\":{\"type\":\"coincident\",\"refs\":[[\"Shell<1>\",\"Front\"],[\"Furniture<1>\",\"Front\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate9\":{\"type\":\"coincident\",\"refs\":[[\"Shell<1>\",\"Right\"],[\"Furniture<1>\",\"Right\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null}}}"
+
+    def Xform "Shell_1" (
+        prepend references = @./Shell.usda@
+    )
+    {
+        custom string agentcad:component = "Shell<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Floors_1" (
+        prepend references = @./Floors.usda@
+    )
+    {
+        custom string agentcad:component = "Floors<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Fixtures_1" (
+        prepend references = @./Fixtures.usda@
+    )
+    {
+        custom string agentcad:component = "Fixtures<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Furniture_1" (
+        prepend references = @./Furniture.usda@
+    )
+    {
+        custom string agentcad:component = "Furniture<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+}

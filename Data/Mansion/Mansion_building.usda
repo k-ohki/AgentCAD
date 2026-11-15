@@ -1,0 +1,88 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "agentcad:format" = "agentcad.assembly/1"
+    }
+    defaultPrim = "Assembly"
+    metersPerUnit = 0.001
+    upAxis = "Y"
+)
+
+def Xform "Assembly" (
+    kind = "assembly"
+)
+{
+    custom string agentcad:definition = "{\"format\":\"agentcad.assembly/1\",\"seq\":7,\"variables\":{},\"components\":{\"Building<1>\":{\"id\":\"Building<1>\",\"source\":\"./Building.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Frame<1>\":{\"id\":\"Frame<1>\",\"source\":\"./Frame.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"StairUnit<1>\":{\"id\":\"StairUnit<1>\",\"source\":\"./StairUnit.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"StairUnit<2>\":{\"id\":\"StairUnit<2>\",\"source\":\"./StairUnit.usda\",\"position\":[0.0,3000.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"StairUnit<3>\":{\"id\":\"StairUnit<3>\",\"source\":\"./StairUnit.usda\",\"position\":[0.0,6000.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"StairUnit<4>\":{\"id\":\"StairUnit<4>\",\"source\":\"./StairUnit.usda\",\"position\":[0.0,9000.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"StairUnit<5>\":{\"id\":\"StairUnit<5>\",\"source\":\"./StairUnit.usda\",\"position\":[0.0,12000.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"StairUnit<6>\":{\"id\":\"StairUnit<6>\",\"source\":\"./StairUnit.usda\",\"position\":[0.0,15000.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false}},\"mates\":{\"Mate1\":{\"type\":\"lock\",\"refs\":[[\"Building<1>\",\"\"],[\"Frame<1>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate2\":{\"type\":\"lock\",\"refs\":[[\"Building<1>\",\"\"],[\"StairUnit<1>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate3\":{\"type\":\"lock\",\"refs\":[[\"StairUnit<1>\",\"\"],[\"StairUnit<2>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[0.0,3000.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate4\":{\"type\":\"lock\",\"refs\":[[\"StairUnit<1>\",\"\"],[\"StairUnit<3>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[0.0,6000.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate5\":{\"type\":\"lock\",\"refs\":[[\"StairUnit<1>\",\"\"],[\"StairUnit<4>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[0.0,9000.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate6\":{\"type\":\"lock\",\"refs\":[[\"StairUnit<1>\",\"\"],[\"StairUnit<5>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[0.0,12000.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate7\":{\"type\":\"lock\",\"refs\":[[\"StairUnit<1>\",\"\"],[\"StairUnit<6>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[0.0,15000.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]}}}"
+
+    def Xform "Building_1" (
+        prepend references = @./Building.usda@
+    )
+    {
+        custom string agentcad:component = "Building<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Frame_1" (
+        prepend references = @./Frame.usda@
+    )
+    {
+        custom string agentcad:component = "Frame<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "StairUnit_1" (
+        prepend references = @./StairUnit.usda@
+    )
+    {
+        custom string agentcad:component = "StairUnit<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "StairUnit_2" (
+        prepend references = @./StairUnit.usda@
+    )
+    {
+        custom string agentcad:component = "StairUnit<2>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 3000, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "StairUnit_3" (
+        prepend references = @./StairUnit.usda@
+    )
+    {
+        custom string agentcad:component = "StairUnit<3>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 6000, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "StairUnit_4" (
+        prepend references = @./StairUnit.usda@
+    )
+    {
+        custom string agentcad:component = "StairUnit<4>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 9000, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "StairUnit_5" (
+        prepend references = @./StairUnit.usda@
+    )
+    {
+        custom string agentcad:component = "StairUnit<5>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 12000, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "StairUnit_6" (
+        prepend references = @./StairUnit.usda@
+    )
+    {
+        custom string agentcad:component = "StairUnit<6>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 15000, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+}

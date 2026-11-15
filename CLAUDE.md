@@ -13,7 +13,7 @@
   場所は PC ごとに違うので、最初に利用者に聞くか探す。usd-brep が入っていれば実カーネルのテスト
   （`test_part_real_kernel.py`・`test_kernel_conformance.py`）も自動で走る
 - Tauri: `cd app` → `npm install` → `npm run tauri dev`（Python の場所は `agentcad.config.json`）。Rust の変更はその場でビルドして確かめる
-- 公開しない手元のもの（.gitignore 済み）: `Data/`（利用者の作業データ。写真から作った装置のモデルなど）、`memo.txt`、
+- 公開しない手元のもの（.gitignore 済み）: `Data/` の中の作業データ（写真から作った装置のモデルなど。作例の `Data/Mansion`・`Unit`・`Robot` だけは公開する）、`memo.txt`、
   `*.bundle`、`*.lnk`、`agentcad.config.json`、`app/package-lock.json`
 - Git Bash の注意: ヒアドキュメント（`<<'EOF'`）の中でも `\\` が `\` に縮むことがある。バックスラッシュを含む Python は
   Write ツールでファイルに書いてから実行する（Windows のパス・正規表現・JSON で事故が起きた）

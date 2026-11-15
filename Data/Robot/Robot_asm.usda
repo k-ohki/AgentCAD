@@ -1,0 +1,232 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "agentcad:format" = "agentcad.assembly/1"
+    }
+    defaultPrim = "Assembly"
+    metersPerUnit = 0.001
+    upAxis = "Y"
+)
+
+def Xform "Assembly" (
+    kind = "assembly"
+)
+{
+    custom string agentcad:definition = "{\"format\":\"agentcad.assembly/1\",\"seq\":0,\"variables\":{},\"components\":{\"Torso<1>\":{\"id\":\"Torso<1>\",\"source\":\"./Torso.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Head<1>\":{\"id\":\"Head<1>\",\"source\":\"./Head.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Servo<1>\":{\"id\":\"Servo<1>\",\"source\":\"./Servo.usda\",\"position\":[36.0,45.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Servo<2>\":{\"id\":\"Servo<2>\",\"source\":\"./Servo.usda\",\"position\":[-36.0,45.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Servo<3>\":{\"id\":\"Servo<3>\",\"source\":\"./Servo.usda\",\"position\":[36.0,137.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Servo<4>\":{\"id\":\"Servo<4>\",\"source\":\"./Servo.usda\",\"position\":[-36.0,137.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Servo<5>\":{\"id\":\"Servo<5>\",\"source\":\"./Servo.usda\",\"position\":[36.0,237.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Servo<6>\":{\"id\":\"Servo<6>\",\"source\":\"./Servo.usda\",\"position\":[-36.0,237.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Servo<7>\":{\"id\":\"Servo<7>\",\"source\":\"./Servo.usda\",\"position\":[80.0,360.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Servo<8>\":{\"id\":\"Servo<8>\",\"source\":\"./Servo.usda\",\"position\":[-80.0,360.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Servo<9>\":{\"id\":\"Servo<9>\",\"source\":\"./Servo.usda\",\"position\":[80.0,280.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Servo<10>\":{\"id\":\"Servo<10>\",\"source\":\"./Servo.usda\",\"position\":[-80.0,280.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Foot<1>\":{\"id\":\"Foot<1>\",\"source\":\"./Foot.usda\",\"position\":[36.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Foot<2>\":{\"id\":\"Foot<2>\",\"source\":\"./Foot.usda\",\"position\":[-36.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Shin<1>\":{\"id\":\"Shin<1>\",\"source\":\"./Shin.usda\",\"position\":[36.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Shin<2>\":{\"id\":\"Shin<2>\",\"source\":\"./Shin.usda\",\"position\":[-36.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Thigh<1>\":{\"id\":\"Thigh<1>\",\"source\":\"./Thigh.usda\",\"position\":[36.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Thigh<2>\":{\"id\":\"Thigh<2>\",\"source\":\"./Thigh.usda\",\"position\":[-36.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"HipBracket<1>\":{\"id\":\"HipBracket<1>\",\"source\":\"./HipBracket.usda\",\"position\":[36.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"HipBracket<2>\":{\"id\":\"HipBracket<2>\",\"source\":\"./HipBracket.usda\",\"position\":[-36.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"UpperArm_L<1>\":{\"id\":\"UpperArm_L<1>\",\"source\":\"./UpperArm_L.usda\",\"position\":[80.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"UpperArm_R<1>\":{\"id\":\"UpperArm_R<1>\",\"source\":\"./UpperArm_R.usda\",\"position\":[-80.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Forearm<1>\":{\"id\":\"Forearm<1>\",\"source\":\"./Forearm.usda\",\"position\":[80.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Forearm<2>\":{\"id\":\"Forearm<2>\",\"source\":\"./Forearm.usda\",\"position\":[-80.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true}},\"mates\":{}}"
+
+    def Xform "Torso_1" (
+        prepend references = @./Torso.usda@
+    )
+    {
+        custom string agentcad:component = "Torso<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Head_1" (
+        prepend references = @./Head.usda@
+    )
+    {
+        custom string agentcad:component = "Head<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Servo_1" (
+        prepend references = @./Servo.usda@
+    )
+    {
+        custom string agentcad:component = "Servo<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (36, 45, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Servo_2" (
+        prepend references = @./Servo.usda@
+    )
+    {
+        custom string agentcad:component = "Servo<2>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-36, 45, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Servo_3" (
+        prepend references = @./Servo.usda@
+    )
+    {
+        custom string agentcad:component = "Servo<3>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (36, 137, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Servo_4" (
+        prepend references = @./Servo.usda@
+    )
+    {
+        custom string agentcad:component = "Servo<4>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-36, 137, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Servo_5" (
+        prepend references = @./Servo.usda@
+    )
+    {
+        custom string agentcad:component = "Servo<5>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (36, 237, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Servo_6" (
+        prepend references = @./Servo.usda@
+    )
+    {
+        custom string agentcad:component = "Servo<6>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-36, 237, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Servo_7" (
+        prepend references = @./Servo.usda@
+    )
+    {
+        custom string agentcad:component = "Servo<7>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (80, 360, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Servo_8" (
+        prepend references = @./Servo.usda@
+    )
+    {
+        custom string agentcad:component = "Servo<8>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-80, 360, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Servo_9" (
+        prepend references = @./Servo.usda@
+    )
+    {
+        custom string agentcad:component = "Servo<9>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (80, 280, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Servo_10" (
+        prepend references = @./Servo.usda@
+    )
+    {
+        custom string agentcad:component = "Servo<10>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-80, 280, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Foot_1" (
+        prepend references = @./Foot.usda@
+    )
+    {
+        custom string agentcad:component = "Foot<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (36, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Foot_2" (
+        prepend references = @./Foot.usda@
+    )
+    {
+        custom string agentcad:component = "Foot<2>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-36, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Shin_1" (
+        prepend references = @./Shin.usda@
+    )
+    {
+        custom string agentcad:component = "Shin<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (36, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Shin_2" (
+        prepend references = @./Shin.usda@
+    )
+    {
+        custom string agentcad:component = "Shin<2>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-36, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Thigh_1" (
+        prepend references = @./Thigh.usda@
+    )
+    {
+        custom string agentcad:component = "Thigh<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (36, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Thigh_2" (
+        prepend references = @./Thigh.usda@
+    )
+    {
+        custom string agentcad:component = "Thigh<2>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-36, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "HipBracket_1" (
+        prepend references = @./HipBracket.usda@
+    )
+    {
+        custom string agentcad:component = "HipBracket<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (36, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "HipBracket_2" (
+        prepend references = @./HipBracket.usda@
+    )
+    {
+        custom string agentcad:component = "HipBracket<2>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-36, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "UpperArm_L_1" (
+        prepend references = @./UpperArm_L.usda@
+    )
+    {
+        custom string agentcad:component = "UpperArm_L<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (80, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "UpperArm_R_1" (
+        prepend references = @./UpperArm_R.usda@
+    )
+    {
+        custom string agentcad:component = "UpperArm_R<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-80, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Forearm_1" (
+        prepend references = @./Forearm.usda@
+    )
+    {
+        custom string agentcad:component = "Forearm<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (80, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Forearm_2" (
+        prepend references = @./Forearm.usda@
+    )
+    {
+        custom string agentcad:component = "Forearm<2>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-80, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+}

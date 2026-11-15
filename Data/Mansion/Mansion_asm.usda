@@ -1,0 +1,142 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "agentcad:format" = "agentcad.assembly/1"
+    }
+    defaultPrim = "Assembly"
+    metersPerUnit = 0.001
+    upAxis = "Y"
+)
+
+def Xform "Assembly" (
+    kind = "assembly"
+)
+{
+    custom string agentcad:definition = "{\"format\":\"agentcad.assembly/1\",\"seq\":21,\"variables\":{},\"components\":{\"Building<1>\":{\"id\":\"Building<1>\",\"source\":\"./Building.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":true},\"Site<1>\":{\"id\":\"Site<1>\",\"source\":\"./Site.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"Frame<1>\":{\"id\":\"Frame<1>\",\"source\":\"./Frame.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"StairUnit<1>\":{\"id\":\"StairUnit<1>\",\"source\":\"./StairUnit.usda\",\"position\":[0.0,0.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"Tree<1>\":{\"id\":\"Tree<1>\",\"source\":\"./Tree.usda\",\"position\":[1500.0,0.0,10000.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"StairUnit<2>\":{\"id\":\"StairUnit<2>\",\"source\":\"./StairUnit.usda\",\"position\":[0.0,3000.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"StairUnit<3>\":{\"id\":\"StairUnit<3>\",\"source\":\"./StairUnit.usda\",\"position\":[0.0,6000.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"StairUnit<4>\":{\"id\":\"StairUnit<4>\",\"source\":\"./StairUnit.usda\",\"position\":[0.0,9000.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"StairUnit<5>\":{\"id\":\"StairUnit<5>\",\"source\":\"./StairUnit.usda\",\"position\":[0.0,12000.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"StairUnit<6>\":{\"id\":\"StairUnit<6>\",\"source\":\"./StairUnit.usda\",\"position\":[0.0,15000.0,0.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"Tree<2>\":{\"id\":\"Tree<2>\",\"source\":\"./Tree.usda\",\"position\":[6750.0,0.0,10000.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"Tree<3>\":{\"id\":\"Tree<3>\",\"source\":\"./Tree.usda\",\"position\":[12000.0,0.0,10000.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"Tree<4>\":{\"id\":\"Tree<4>\",\"source\":\"./Tree.usda\",\"position\":[17250.0,0.0,10000.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false},\"Tree<5>\":{\"id\":\"Tree<5>\",\"source\":\"./Tree.usda\",\"position\":[22500.0,0.0,10000.0],\"rotation\":[1.0,0.0,0.0,0.0],\"fixed\":false}},\"mates\":{\"Mate1\":{\"type\":\"coincident\",\"refs\":[[\"Building<1>\",\"Top\"],[\"Site<1>\",\"Top\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate2\":{\"type\":\"coincident\",\"refs\":[[\"Building<1>\",\"Front\"],[\"Site<1>\",\"Front\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate3\":{\"type\":\"coincident\",\"refs\":[[\"Building<1>\",\"Right\"],[\"Site<1>\",\"Right\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate4\":{\"type\":\"coincident\",\"refs\":[[\"Building<1>\",\"Top\"],[\"Frame<1>\",\"Top\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate5\":{\"type\":\"coincident\",\"refs\":[[\"Building<1>\",\"Front\"],[\"Frame<1>\",\"Front\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate6\":{\"type\":\"coincident\",\"refs\":[[\"Building<1>\",\"Right\"],[\"Frame<1>\",\"Right\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate7\":{\"type\":\"coincident\",\"refs\":[[\"Building<1>\",\"Top\"],[\"StairUnit<1>\",\"Top\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate8\":{\"type\":\"coincident\",\"refs\":[[\"Building<1>\",\"Front\"],[\"StairUnit<1>\",\"Front\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate9\":{\"type\":\"coincident\",\"refs\":[[\"Building<1>\",\"Right\"],[\"StairUnit<1>\",\"Right\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate10\":{\"type\":\"lock\",\"refs\":[[\"StairUnit<1>\",\"\"],[\"StairUnit<2>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[0.0,3000.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate11\":{\"type\":\"lock\",\"refs\":[[\"StairUnit<1>\",\"\"],[\"StairUnit<3>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[0.0,6000.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate12\":{\"type\":\"lock\",\"refs\":[[\"StairUnit<1>\",\"\"],[\"StairUnit<4>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[0.0,9000.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate13\":{\"type\":\"lock\",\"refs\":[[\"StairUnit<1>\",\"\"],[\"StairUnit<5>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[0.0,12000.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate14\":{\"type\":\"lock\",\"refs\":[[\"StairUnit<1>\",\"\"],[\"StairUnit<6>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[0.0,15000.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate15\":{\"type\":\"coincident\",\"refs\":[[\"Site<1>\",\"Top\"],[\"Tree<1>\",\"Top\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate16\":{\"type\":\"distance\",\"refs\":[[\"Building<1>\",\"Front\"],[\"Tree<1>\",\"Front\"]],\"value\":10000,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate17\":{\"type\":\"distance\",\"refs\":[[\"Building<1>\",\"Right\"],[\"Tree<1>\",\"Right\"]],\"value\":1500,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":null},\"Mate18\":{\"type\":\"lock\",\"refs\":[[\"Tree<1>\",\"\"],[\"Tree<2>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[5250.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate19\":{\"type\":\"lock\",\"refs\":[[\"Tree<1>\",\"\"],[\"Tree<3>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[10500.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate20\":{\"type\":\"lock\",\"refs\":[[\"Tree<1>\",\"\"],[\"Tree<4>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[15750.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]},\"Mate21\":{\"type\":\"lock\",\"refs\":[[\"Tree<1>\",\"\"],[\"Tree<5>\",\"\"]],\"value\":null,\"aligned\":true,\"sign\":1.0,\"suppressed\":false,\"expr\":null,\"data\":[21000.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0]}}}"
+
+    def Xform "Building_1" (
+        prepend references = @./Building.usda@
+    )
+    {
+        custom string agentcad:component = "Building<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Site_1" (
+        prepend references = @./Site.usda@
+    )
+    {
+        custom string agentcad:component = "Site<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Frame_1" (
+        prepend references = @./Frame.usda@
+    )
+    {
+        custom string agentcad:component = "Frame<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "StairUnit_1" (
+        prepend references = @./StairUnit.usda@
+    )
+    {
+        custom string agentcad:component = "StairUnit<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Tree_1" (
+        prepend references = @./Tree.usda@
+    )
+    {
+        custom string agentcad:component = "Tree<1>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1500, 0, 10000, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "StairUnit_2" (
+        prepend references = @./StairUnit.usda@
+    )
+    {
+        custom string agentcad:component = "StairUnit<2>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 3000, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "StairUnit_3" (
+        prepend references = @./StairUnit.usda@
+    )
+    {
+        custom string agentcad:component = "StairUnit<3>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 6000, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "StairUnit_4" (
+        prepend references = @./StairUnit.usda@
+    )
+    {
+        custom string agentcad:component = "StairUnit<4>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 9000, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "StairUnit_5" (
+        prepend references = @./StairUnit.usda@
+    )
+    {
+        custom string agentcad:component = "StairUnit<5>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 12000, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "StairUnit_6" (
+        prepend references = @./StairUnit.usda@
+    )
+    {
+        custom string agentcad:component = "StairUnit<6>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 15000, 0, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Tree_2" (
+        prepend references = @./Tree.usda@
+    )
+    {
+        custom string agentcad:component = "Tree<2>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (6750, 0, 10000, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Tree_3" (
+        prepend references = @./Tree.usda@
+    )
+    {
+        custom string agentcad:component = "Tree<3>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (12000, 0, 10000, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Tree_4" (
+        prepend references = @./Tree.usda@
+    )
+    {
+        custom string agentcad:component = "Tree<4>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (17250, 0, 10000, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+
+    def Xform "Tree_5" (
+        prepend references = @./Tree.usda@
+    )
+    {
+        custom string agentcad:component = "Tree<5>"
+        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (22500, 0, 10000, 1) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+}
