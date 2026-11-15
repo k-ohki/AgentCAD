@@ -17,6 +17,7 @@ class DrawingApi:
             "drw.new": self.drw_new, "drw.sheet": self.drw_sheet, "drw.view_add": self.drw_view_add,
             "drw.view_set": self.drw_view_set, "drw.dim_add": self.drw_dim_add, "drw.dim_set": self.drw_dim_set,
             "drw.delete": self.drw_delete, "drw.export": self.drw_export,
+            "drw.note_add": self.drw_note_add, "drw.note_set": self.drw_note_set,
         })
 
     def _drw(self, doc: str) -> DrawingDocument:
@@ -38,7 +39,7 @@ class DrawingApi:
         return st
 
     def drw_new(self, model: str, size: str = "A3", landscape: bool = True, scale=None, standard: bool = True):
-        """パート model の図面を作る。scale を省くと、標準 3 面図が用紙に入るいちばん大きい縮尺。
+        """パートかアセンブリ model の図面を作る。scale を省くと、標準 3 面図が用紙に入るいちばん大きい縮尺。
         standard=True なら標準 3 面図（正面・平面・右側面。第三角法）を置く。"""
         did = self.ws.new_drawing(model)
         d = self._drw(did)
@@ -92,6 +93,15 @@ class DrawingApi:
             d.dims[id]["pos"] = [float(pos[0]), float(pos[1])]
         return self._drw_edit(doc, "寸法を移動", edit)
 
+    def drw_note_add(self, doc: str, view: str, text: str, pos: list | None = None, h: float = 3.5):
+        """注記（自由な文字。室名など。D73）。pos = 文字の中心（ビューの位置からの用紙の mm）、h = 文字の高さ（mm）。
+        動かすのは drw.dim_set、消すのは drw.delete（寸法と同じ）。"""
+        return self._drw_edit(doc, "注記を追加", lambda d: d.add_note(view, text, pos or (0, 0), h))
+
+    def drw_note_set(self, doc: str, id: str, text: str | None = None, h: float | None = None):
+        """注記の文字・高さを変える。"""
+        return self._drw_edit(doc, "注記を変更", lambda d: d.set_note(id, text, h))
+
     def drw_delete(self, doc: str, ids: list[str]):
         return self._drw_edit(doc, "削除", lambda d: d.delete(list(ids)))
 
@@ -120,11 +130,12 @@ class DrawingApi:
         d = self._drw(doc)
         name = self.ws.names[doc]
         r = render(d, name)
-        model_open = self.ws.is_part(d.model)
+        model_open = d.model in self.ws.docs and self.ws.kind(d.model) in ("part", "assembly")
         fmt = lambda s: None if s is None else f"{fmt_value(s[0])}:{fmt_value(s[1])}"
         return {"doc": doc, "kind": "drawing", "name": name, "path": self.ws.paths[doc], "kernel": self.ws.kernel_name,
                 "modified": self.ws.modified(doc),
-                "model": {"doc": d.model, "name": self.ws.names.get(d.model) if model_open else None},
+                "model": {"doc": d.model, "name": self.ws.names.get(d.model) if model_open else None,
+                          "kind": self.ws.kind(d.model) if model_open else None},
                 "sheet": {**d.sheet, "scale_text": fmt(d.sheet["scale"]), "title": d.title, "width": r["size"][0], "height": r["size"][1],
                           "items": r["sheet"]},
                 "sizes": list(SHEETS), "scales": [fmt(s) for s in SCALES],

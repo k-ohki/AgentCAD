@@ -26,6 +26,7 @@ export const ICONS = {
   // スケッチ
   sketch: S(`<rect ${N} x="3" y="9" width="12" height="11"/><path ${Y} d="M14 14l7-7-2-2-7 7-1 3z"/>`),
   sketchExit: S(`<rect ${N} x="3" y="9" width="12" height="11"/><path stroke="#1e8e3e" stroke-width="2.5" fill="none" d="M11 8l3 3 7-7"/>`),
+  note: S(`<path ${N} d="M4 4h16v12H10l-4 4v-4H4z"/><text x="8" y="13.5" font-size="8" fill="#1e6fff" stroke="none" font-family="sans-serif">A</text>`),
   dim: S(`<path ${N} d="M4 18L18 4"/><path stroke="#1e6fff" stroke-width="1.6" fill="none" d="M4 21h16M4 19v4M20 19v4M6 20l-2 1 2 1M18 20l2 1-2 1"/><text x="9" y="13" font-size="7" fill="#1e6fff" stroke="none" font-family="sans-serif">20</text>`),
   select: S(`<path fill="#fff" stroke="currentColor" d="M6 3l12 9-5 1 3 6-2 1-3-6-4 3z"/>`),
   line: S(`<path ${N} stroke-width="1.8" d="M4 19L20 5"/><circle fill="currentColor" cx="4" cy="19" r="1.6"/><circle fill="currentColor" cx="20" cy="5" r="1.6"/>`),
@@ -196,6 +197,7 @@ const DRAWING = [
   big("btn-drw-proj", "d_proj", "投影図", "投影図: ビューを選んで押し、置く側（上下左右）をクリック。親のビューと位置がそろう"),
   sep,
   big("btn-drw-dim", "dim", "スマート<br>寸法", "スマート寸法 (D): 点を 2 つ、または直線・円をクリック → 置く位置をクリック").replace('class="big"', 'class="big hero"'),
+  big("btn-drw-note", "note", "注記", "注記: 置く位置をクリック → 文字を入れる（室名など。近くのビューと一緒に動く）"),
   sep,
   big("btn-drw-pdf", "pdf", "PDF<br>出力", "PDF に書き出す（用紙の大きさ・縮尺どおり）"),
   stack(small("btn-drw-dxf", "dxf", "DXF（用紙どおり）", "DXF に書き出す: 用紙の mm（図枠・表題欄つき）"),
@@ -249,7 +251,7 @@ const STANDARD = `
       <div id="new-menu" class="menu" hidden>
         <button id="btn-newdoc" title="新しいパート">${icon("part")}パート</button>
         <button id="btn-newasm" title="新しいアセンブリ">${icon("assembly")}アセンブリ</button>
-        <button id="btn-newdrw" title="今のパートの図面を作る（標準 3 面図つき）">${icon("drawing")}図面</button>
+        <button id="btn-newdrw" title="今のパート・アセンブリの図面を作る（標準 3 面図つき）">${icon("drawing")}図面</button>
         <button id="btn-new" title="新しいデモ部品（板・ボス・穴・フィレット）">${icon("demo")}デモ部品</button>
         <button id="btn-new-ai" title="作りたいものを AI に伝えて、新しいパートを作ってもらう">${icon("ai")}AI で作成…</button>
         <button id="btn-new-car" title="車のデモ部品（参照平面・ミラー・スケッチのパターンなど。カットは usd-brep が要る）">${icon("demo")}デモ（車）</button>

@@ -325,6 +325,33 @@ class DrawingDocument(History):
         return did
 
 
+    def add_note(self, view: str, text: str, pos=(0.0, 0.0), h: float = 3.5) -> str:
+        """注記（自由な文字。室名など）。寸法と同じ一覧（dims）に kind = "note" で持ち、ビューと一緒に動く（D73）。
+        pos = 文字の中心の位置（ビューの位置からの用紙の mm）、h = 文字の高さ（用紙の mm）。"""
+        if view not in self.views:
+            raise DrawingError(f"ビュー {view} がありません")
+        text = str(text).strip()
+        if not text:
+            raise DrawingError("注記の文字が空です")
+        if not 0.5 <= float(h) <= 50:
+            raise DrawingError("文字の高さは 0.5〜50 mm にしてください")
+        did = self._id("Note")
+        self.dims[did] = {"view": view, "kind": "note", "text": text, "pos": [float(pos[0]), float(pos[1])], "h": float(h)}
+        return did
+
+    def set_note(self, did: str, text: str | None = None, h: float | None = None) -> None:
+        d = self.dims.get(did)
+        if d is None or d.get("kind") != "note":
+            raise DrawingError(f"注記 {did} がありません")
+        if text is not None:
+            if not str(text).strip():
+                raise DrawingError("注記の文字が空です")
+            d["text"] = str(text).strip()
+        if h is not None:
+            if not 0.5 <= float(h) <= 50:
+                raise DrawingError("文字の高さは 0.5〜50 mm にしてください")
+            d["h"] = float(h)
+
 def auto_direction(pa, pb, pos) -> str:
     """文字の位置から寸法の向きを決める（一般的な 3D CAD のスマート寸法と同じ考え方）:
     2 点の x の範囲の上下に置けば水平、y の範囲の左右に置けば垂直、それ以外（斜めの外）は平行。"""

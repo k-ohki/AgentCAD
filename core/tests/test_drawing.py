@@ -168,3 +168,67 @@ def test_export_pdf_dxf_and_save(part, tmp_path):
     st = api.call("doc.open", {"path": out["saved"][0]})
     assert st["kind"] == "drawing" and len(st["views"]) == 3 and st["dims"][0]["text"] == "Ø10" and st["views"][0]["hidden"]
     assert {x["kind"] for x in api.call("doc.list")} == {"part", "drawing"}
+
+
+def test_assembly_drawing(part, tmp_path):
+    """D72: アセンブリの図面。部品を姿勢どおりに置いて投影し、エッジの名前は "<部品>/…"。部品を動かすと図面も追従し、
+    保存するとアセンブリ（とパート）も一緒に保存され、開き直せる。"""
+    api, d = part
+    a = api.call("asm.new", {"name": "Pair"})["doc"]
+    api.call("asm.add", {"doc": a, "part": d, "position": [0, 0, 0]})
+    api.call("asm.add", {"doc": a, "part": d, "position": [100, 0, 0]})
+    st = api.call("drw.new", {"model": a, "scale": "1:2"})
+    drw, f = st["doc"], st["views"][0]
+    assert f["label"] == "正面図" and f["bbox"][2] - f["bbox"][0] == pytest.approx(160 / 2)     # 0..160 を 1:2
+    assert st["model"] == {"doc": a, "name": "Pair", "kind": "assembly"}
+    names = {s["src"].partition("@")[0] for s in f["snaps"]}
+    assert any(n.startswith("edge:Plate<2>/") for n in names) and any(n.startswith("edge:Plate<1>/") for n in names)
+    # 2 つ目の部品の右下の端点と、1 つ目の左下の端点の距離 = 160
+    def corner(x):
+        s = min((s for s in f["snaps"] if s["kind"] == "vertex"), key=lambda s: abs(s["w"][0] - x) + abs(s["w"][1]))
+        return {"src": s["src"], "hint": s["w"]}
+    st = api.call("drw.dim_add", {"doc": drw, "view": f["id"], "a": corner(0), "b": corner(160), "pos": [40, -10]})
+    assert st["dims"][0]["text"] == "160"
+    # 部品を動かすと寸法が追従する
+    comp = next(c for c in api.call("doc.state", {"doc": a})["components"] if c["id"] == "Plate<2>")
+    api.call("asm.drag", {"doc": a, "comp": comp["id"], "position": [120, 0, 0], "final": True})
+    assert api.call("doc.state", {"doc": drw})["dims"][0]["text"] == "180"
+    # 保存 → 閉じる → 開く
+    out = api.call("doc.save", {"doc": drw, "path": str(tmp_path / "pair_drw")})
+    assert out["saved"][0].endswith("pair_drw.usda") and any(p.endswith("Pair.usda") for p in out["saved"])
+    for x in (drw, a, d):
+        api.call("doc.close", {"doc": x})
+    st = api.call("doc.open", {"path": out["saved"][0]})
+    assert st["kind"] == "drawing" and st["dims"][0]["text"] == "180"
+    assert {x["kind"] for x in api.call("doc.list")} == {"part", "assembly", "drawing"}
+
+
+def test_notes(part, tmp_path):
+    """D73: 注記（自由な文字）。ビューに付いて一緒に動き、文字・高さを変えられ、PDF・DXF にも出て、保存して開き直せる。"""
+    api, d = part
+    st = api.call("drw.new", {"model": d, "scale": "1:2"})
+    drw, f = st["doc"], st["views"][0]
+    st = api.call("drw.note_add", {"doc": drw, "view": f["id"], "text": "リビング", "pos": [10, 5]})
+    nid = st["created"][0]
+    n = next(x for x in st["dims"] if x["id"] == nid)
+    assert n["kind"] == "note" and n["text"] == "リビング" and n["h"] == 3.5 and n["box"][0] < 10 < n["box"][2]
+    assert n["items"][0]["k"] == "text" and n["items"][0]["align"] == "c"
+    st = api.call("drw.note_set", {"doc": drw, "id": nid, "text": "LDK", "h": 5})
+    n = next(x for x in st["dims"] if x["id"] == nid)
+    assert n["text"] == "LDK" and n["h"] == 5
+    # ビューを動かすと一緒に動く（位置はビューからの相対）
+    st = api.call("drw.view_set", {"doc": drw, "id": f["id"], "x": f["x"] + 20, "y": f["y"]})
+    n = next(x for x in st["dims"] if x["id"] == nid)
+    assert n["x"] == pytest.approx(f["x"] + 20) and n["pos"] == [10, 5]
+    with pytest.raises(RpcError):
+        api.call("drw.note_add", {"doc": drw, "view": f["id"], "text": "  "})
+    with pytest.raises(RpcError):
+        api.call("drw.note_set", {"doc": drw, "id": nid, "h": 0})
+    p = api.call("drw.export", {"doc": drw, "format": "dxf", "path": str(tmp_path / "n.dxf")})["path"]
+    assert "LDK" in open(p, encoding="cp932").read()
+    out = api.call("doc.save", {"doc": drw, "path": str(tmp_path / "n_drw")})
+    api.call("doc.close", {"doc": drw}); api.call("doc.close", {"doc": d})
+    st = api.call("doc.open", {"path": out["saved"][0]})
+    assert [x["text"] for x in st["dims"] if x["kind"] == "note"] == ["LDK"]
+    st = api.call("drw.delete", {"doc": st["doc"], "ids": [nid]})
+    assert not st["dims"]

@@ -389,11 +389,12 @@ USD のテキスト形式（`.usda`）。pxr を使わず自前で書き、読�
 ### 9.3.2 図面の API（cad/api/drawing_api.py、D60）
 | メソッド | 内容 |
 |---|---|
-| `drw.new {model, size?, landscape?, scale?, standard?}` | パート model の図面を作る（既定: A3 横、縮尺は自動、標準 3 面図） |
+| `drw.new {model, size?, landscape?, scale?, standard?}` | パートかアセンブリ model の図面を作る（既定: A3 横、縮尺は自動、標準 3 面図）。アセンブリは部品を姿勢どおりに置いて投影し、エッジの名前は `<部品 ID>/<パートでの名前>`（D72） |
 | `drw.sheet {doc, size?, landscape?, scale?, title?}` | 用紙・向き・縮尺（"1:2" か [1, 2]）・名称 |
 | `drw.view_add {doc, orient \| parent + side, x?, y?}` / `{doc, standard: true}` | モデルビュー / 投影図（side: right・left・up・down）/ 標準 3 面図。(x, y) = 図の中心 |
 | `drw.view_set {doc, id, x?, y?, scale?, hidden?}` | 位置・ビューの縮尺（null = シートの縮尺）・隠線の表示 |
 | `drw.dim_add {doc, view, a, b?, pos, dir?}` / `drw.dim_set {doc, id, pos}` | 寸法（a・b = `{src, hint}`。b なしで a が円なら直径・半径）/ 文字の位置 |
+| `drw.note_add {doc, view, text, pos?, h?}` / `drw.note_set {doc, id, text?, h?}` | 注記（自由な文字。室名など。D73）。pos = 文字の中心（ビューの位置からの用紙の mm）、h = 文字の高さ（mm、既定 3.5）。寸法と同じ一覧（`dims`、kind = "note"）に入り、移動は `drw.dim_set`、削除は `drw.delete` |
 | `drw.delete {doc, ids}` / `drw.export {doc, format: pdf \| dxf, path, scale: sheet \| model}` | 削除 / 書き出し |
 
 `doc.state`（kind = "drawing"）: sheet（size・scale・width・height・items）、views（id・label・x・y・bbox・items・snaps・edges）、

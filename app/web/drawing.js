@@ -15,7 +15,7 @@ export class DrawingEditor {
     this.cv = canvas; this.ctx = canvas.getContext("2d"); this.h = hooks;
     this.st = null; this.scale = 2; this.ox = 0; this.oy = 0;
     this.sel = null;            // 選んでいるビュー / 寸法の ID
-    this.tool = "select";       // select / dim / place（モデルビューを置く）/ project（投影図を置く）
+    this.tool = "select";       // select / dim / place（モデルビューを置く）/ project（投影図を置く）/ note（注記を置く）
     this.pending = [];          // 寸法ツール: 選んだ相手 [{view, anchor | circle, p（用紙の座標）}]
     this.placing = null;        // place: { orient, label }
     this.hover = null; this.cursor = null; this.drag = null;
@@ -312,6 +312,16 @@ export class DrawingEditor {
       const st = await this.h.rpc("drw.view_add", { parent, side: at.side, x: at.x, y: at.y });
       if (st?.created) { this.sel = st.created[0]; this.h.onSelect?.(); this.draw(); }
     } else if (this.tool === "dim") await this._dimClick(p);
+    else if (this.tool === "note") {
+      // 注記はビューに付ける（ビューと一緒に動く）: 中にあるビュー、無ければいちばん近いビュー
+      const vs = this.st.views; if (!vs.length) { this.h.toast("先にビューを置いてください", true); return; }
+      const dist = (v) => Math.hypot(Math.max(v.x + v.bbox[0] - p[0], 0, p[0] - v.x - v.bbox[2]), Math.max(v.y + v.bbox[1] - p[1], 0, p[1] - v.y - v.bbox[3]));
+      const v = this._hitView(p) || vs.reduce((a, b) => (dist(b) < dist(a) ? b : a));
+      const text = await this.h.ask?.("注記の文字（室名など）");
+      if (!text) return;
+      const st = await this.h.rpc("drw.note_add", { view: v.id, text, pos: [p[0] - v.x, p[1] - v.y] });
+      if (st?.created) { this.sel = st.created[0]; this.h.onSelect?.(); this.draw(); }
+    }
   }
 
   async _dimClick(p) {
@@ -356,8 +366,9 @@ export class DrawingEditor {
           : this.pending.length ? "2 つ目の点をクリック" : "スマート寸法: 点（端点・中点・中心）を 2 つ、または直線・円をクリック（Esc で終了）";
     } else if (this.tool === "place") t = `${this.placing.label}を置く位置をクリック（Esc で取り消し）`;
     else if (this.tool === "project") t = "投影図を置く側（選んだビューの上下左右）へカーソルを動かしてクリック（Esc で取り消し）";
+    else if (this.tool === "note") t = "注記を置く位置をクリック（続けて置けます。Esc で終了）";
     else if (this.hover?.view) t = "ドラッグでビューを移動";
-    else if (this.hover?.dim) t = "ドラッグで寸法を移動、Delete で削除";
+    else if (this.hover?.dim) t = this.dim(this.hover.dim)?.kind === "note" ? "ドラッグで注記を移動、Delete で削除" : "ドラッグで寸法を移動、Delete で削除";
     this.h.status?.(t);
   }
 }

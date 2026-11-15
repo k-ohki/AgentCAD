@@ -142,11 +142,60 @@ class Workspace:
         return did in self.docs and isinstance(self.docs[did], PartDocument)
 
     def new_drawing(self, model: str, name: str | None = None) -> str:
-        """パート model の図面を作る（ビューはまだ無い）。"""
+        """パートかアセンブリ model の図面を作る（ビューはまだ無い）。"""
         from ..drawing import DrawingDocument
-        if not self.is_part(model):
-            raise ValueError("図面にするパートを選んでください")
-        return self._add(DrawingDocument(self.part_mesh, model), name or self.names[model])
+        if not (self.is_part(model) or self.is_assembly(model)):
+            raise ValueError("図面にするパートかアセンブリを選んでください")
+        return self._add(DrawingDocument(self.model_mesh, model), name or self.names[model])
+
+    def model_mesh(self, did: str) -> tuple[object, dict | None]:
+        """図面のモデル（パート・アセンブリ）の表示メッシュと、形が変わると変わる印。"""
+        if self.is_part(did):
+            return self.part_mesh(did)
+        if did in self.docs and self.is_assembly(did):
+            return self.assembly_mesh(did)
+        raise KeyError("図面のモデル（パート・アセンブリ）が開かれていません")
+
+    def assembly_mesh(self, did: str) -> tuple[object, dict | None]:
+        """アセンブリの表示メッシュ: 部品ごとのパートの表示メッシュを姿勢で置いて 1 つにまとめる（図面用。D72）。
+        面・エッジの名前は "<部品 ID>/<パートでの名前>"（同じパートの部品どうしで区別できるように）。
+        部品の姿勢・パートの形が変わったときだけ作り直し、印もそのとき新しくする。"""
+        asm = self.docs[did]
+        items = []
+        for cid, c in asm.components.items():
+            if not self.is_part(c.source):
+                continue
+            body, m = self.part_mesh(c.source)
+            if m is not None:
+                items.append((cid, c, body, m))
+        sig = tuple((cid, id(body), tuple(map(float, c.position)), tuple(map(float, c.rotation))) for cid, c, body, _ in items)
+        hit = self._meshes.get(did)
+        if hit is not None and hit[0] == sig:
+            return hit[1], hit[2]
+        if not items:
+            self._meshes[did] = (sig, object(), None)
+            return self._meshes[did][1], None
+        pos, idx, fot, fnames, segs, owner, enames, efaces = [], [], [], [], [], [], [], []
+        nv = nf = ne = 0
+        for cid, c, _, m in items:
+            M = np.asarray(c.matrix(), float)
+            R, t = M[:3, :3], M[:3, 3]
+            P = np.asarray(m["positions"], float).reshape(-1, 3)
+            pos.append(P @ R.T + t)
+            idx.append(np.asarray(m["indices"]).reshape(-1, 3) + nv)
+            fot.append(np.asarray(m["face_of_triangle"]) + nf)
+            fnames += [f"{cid}/{n}" for n in m["face_names"]]
+            E = np.asarray(m["edges"], float).reshape(-1, 2, 3)
+            segs.append(E @ R.T + t)
+            owner.append(np.asarray(m["edge_of_segment"]) + ne)
+            enames += [f"{cid}/{n}" for n in m["edge_names"]]
+            efaces += [[a + nf if a >= 0 else -1, b + nf if b >= 0 else -1] for a, b in m["edge_faces"]]
+            nv, nf, ne = nv + len(P), nf + len(m["face_names"]), ne + len(m["edge_names"])
+        mesh = {"positions": np.concatenate(pos), "indices": np.concatenate(idx), "face_of_triangle": np.concatenate(fot),
+                "face_names": fnames, "edges": np.concatenate(segs), "edge_of_segment": np.concatenate(owner),
+                "edge_names": enames, "edge_faces": efaces}
+        self._meshes[did] = (sig, object(), mesh)
+        return self._meshes[did][1], mesh
 
     def part_mesh(self, did: str) -> tuple[object, dict | None]:
         """パートの表示メッシュと、形が変わると変わる印（ボディそのもの）。同じボディなら作り直さない。図面が使う。"""
@@ -210,7 +259,7 @@ class Workspace:
             if not os.path.isfile(full):
                 raise ValueError(f"図面のモデルのファイルが見つかりません: {d['model']}")
             d["model"] = self.open(full)
-            return self._add(DrawingDocument.from_dict(d, self.part_mesh), name, path)
+            return self._add(DrawingDocument.from_dict(d, self.model_mesh), name, path)
         if not fmt.startswith("agentcad.part"):
             raise ValueError(f"{os.path.basename(path)} は AgentCAD の文書ではありません（format: {fmt or 'なし'}）")
         return self._add(PartDocument.from_dict(self.kernel, d), name, path)
@@ -316,17 +365,18 @@ class Workspace:
         out["saved"].insert(0, out["saved"].pop())   # アセンブリ自身を先頭に
 
     def _save_drawing(self, did: str, path: str, out: dict):
-        """図面を保存する。モデルのパートが未保存・変更ありなら一緒に保存する（アセンブリと同じ）。"""
+        """図面を保存する。モデル（パート・アセンブリ）が未保存・変更ありなら一緒に保存する（アセンブリと同じ）。"""
         drw = self.get(did)
         base = os.path.dirname(path)
         src = drw.model
-        if not self.is_part(src):
-            raise ValueError("図面のモデル（パート）が開かれていません")
+        if not (self.is_part(src) or (src in self.docs and self.is_assembly(src))):
+            raise ValueError("図面のモデル（パート・アセンブリ）が開かれていません")
         p = self.paths.get(src) or self._free_path(os.path.join(base, self.names[src] + USD_EXT))
         if _same(p, path):
-            raise ValueError("図面はモデルのパートと別の名前で保存してください")
+            raise ValueError("図面はモデルと別の名前で保存してください")
         if not p.lower().endswith(USD_EXT) or self.modified(src):
-            self._save_part(src, os.path.abspath(_usd_path(p)), out)
+            save = self._save_part if self.is_part(src) else self._save_assembly
+            save(src, os.path.abspath(_usd_path(p)), out)
         ref = _relpath(self.paths[src], base)
         d = drw.to_dict()
         d["model"] = ref

@@ -173,6 +173,12 @@ def dim_items(doc: DrawingDocument, d: dict) -> dict:
     """寸法 1 つ分（ビューの位置からの相対座標）。"""
     v = doc.views[d["view"]]
     s = doc.scale_of(v)
+    if d["kind"] == "note":                              # 注記（D73）: 文字の中心が pos
+        h, (x, y) = d["h"], d["pos"]
+        w = text_width(d["text"], h)
+        item = {"k": "text", "layer": "dim", "p": [x, y - h / 2], "h": h, "s": d["text"], "align": "c", "angle": 0.0}
+        return {"items": [item], "box": [x - w / 2 - 1, y - h / 2 - 1, x + w / 2 + 1, y + h / 2 + 1], "value": None,
+                "text": d["text"], "dangling": False}
     if d["kind"] == "linear":
         pa, oka = doc.resolve(v, d["a"])
         pb, okb = doc.resolve(v, d["b"])
@@ -207,7 +213,7 @@ def render(doc: DrawingDocument, name: str, curves: bool = False) -> dict:
                              "hidden": bool(v.get("hidden")), "parent": v.get("parent"), "side": v.get("side"), **r})
     for did, d in doc.dims.items():
         v = doc.views[d["view"]]
-        out["dims"].append({"id": did, "view": d["view"], "kind": d["kind"], "x": v["x"], "y": v["y"], "pos": d["pos"],
+        out["dims"].append({"id": did, "view": d["view"], "kind": d["kind"], "x": v["x"], "y": v["y"], "pos": d["pos"], "h": d.get("h"),
                             **dim_items(doc, d)})
     return out
 

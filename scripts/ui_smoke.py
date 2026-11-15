@@ -1093,6 +1093,17 @@ def scenario_drawing(pg, api, shot):
     assert [d["text"] for d in st["dims"]] == ["100", "Ø30", "60"], [d["text"] for d in st["dims"]]
     pg.keyboard.press("Escape"); time.sleep(0.2)
     assert pg.evaluate("() => window.__agentcad.drawing.tool") == "select"
+    # 注記（D73）: ボタン → 位置をクリック → 文字を入れる → 一覧に「注記 …」、右のパネルで文字を変える、Delete で消す
+    cmd(pg, "#btn-drw-note"); time.sleep(0.2)
+    click(f["x"] + 30, f["y"] + 45, 0.3)
+    box = pg.locator(".modal input"); box.wait_for(timeout=5000); box.fill("リビング"); box.press("Enter"); time.sleep(0.6)
+    note = next(d for d in S()["dims"] if d["kind"] == "note")
+    assert note["text"] == "リビング" and "注記 リビング" in pg.inner_text("#drw-tree")
+    pg.fill("#drw-note-text", "LDK"); pg.press("#drw-note-text", "Enter"); time.sleep(0.5)
+    assert next(d for d in S()["dims"] if d["kind"] == "note")["text"] == "LDK"
+    pg.keyboard.press("Escape"); time.sleep(0.1)
+    pg.keyboard.press("Delete"); time.sleep(0.5)
+    assert not any(d["kind"] == "note" for d in S()["dims"])
     # 寸法を選んで Delete、Ctrl+Z で戻す
     d0 = st["dims"][2]
     click(d0["x"] + (d0["box"][0] + d0["box"][2]) / 2, d0["y"] + (d0["box"][1] + d0["box"][3]) / 2)

@@ -57,7 +57,7 @@ SYSTEM_PROMPT = """\
 
 # よくある依頼
 - 「〜を作って」: doc.new → スケッチと押し出し・カット・回転の組み合わせで作る → render_view（iso と、必要なら front/top）で確認
-- 「図面を書いて」: drw.new {model: パートの ID}（標準 3 面図が入る）→ 必要なら drw.dim_add で寸法 → ui_action show_document で図面を画面に出す。
+- 「図面を書いて」: drw.new {model: パートかアセンブリの ID}（標準 3 面図が入る）→ 必要なら drw.dim_add で寸法・drw.note_add で注記（室名など）→ ui_action show_document で図面を画面に出す。
   PDF・DXF が要るなら drw.export {format, path}
 - 「断面を表示して」: ui_action section {plane, offset, flip}（offset は平面からの距離 mm。形の中央を切るなら外形の中心）
 - 「この画像から〜を作って」: 画像から形・比率を読み取り、主要な寸法を決めて（分からない寸法はもっともらしい値に）作る。

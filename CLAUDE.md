@@ -5,7 +5,7 @@
 形状演算（BRep）は外部カーネル usd-brep（NVIDIA、Python 3.12）に任せる。
 **操作感は一般的な機械系 3D CAD の流れ・既定値に合わせる**（利用者の希望。具体的な手本は `CLAUDE.local.md`（公開しない）にある）。
 
-最終更新: 2026-11-14（D1〜D71 まで実装・確認済み。次の段階の候補は `docs/PLAN.md` 6 章）
+最終更新: 2026-11-15（D1〜D73 まで実装・確認済み。次の段階の候補は `docs/PLAN.md` 6 章）
 
 ## 作業環境（利用者の Windows PC の Claude Code）
 - リポジトリの場所で直接作業し、git もそこで管理する（ブランチ main。大きな作業はブランチを切って main に取り込む）
@@ -19,7 +19,7 @@
   Write ツールでファイルに書いてから実行する（Windows のパス・正規表現・JSON で事故が起きた）
 
 ## 引き継ぎ（2026-11-14 時点）
-- 状態: D1〜D71 実装済み。`cd core && python -m pytest -q` で 240 passed, 3 skipped（usd-brep あり）、`scripts/ui_smoke.py` も OK
+- 状態: D1〜D73 実装済み。`cd core && python -m pytest -q` で 242 passed, 3 skipped（usd-brep あり）、`scripts/ui_smoke.py` も OK
 - 利用者の確認待ち: DXF の日本語（D60）、実際の AI の API（D67）、デスクトップ版での「動かしてみる」の体感と「その他の色…」（D69・D70）
 - ファイルの読み込み・書き出し（STL・3MF・OBJ。D71）を実装。**利用者の確認待ち**: 実際のスライサ・Blender で開けるか、
   手元の STL を開いたときの面の分かれ方。STEP は usd-brep では不可（PLAN.md 6.0）
@@ -31,7 +31,7 @@
 |---|---|
 | `docs/PLAN.md` | 進め方の原則、フェーズと状態、**次の作業（6 章）**、バックログ、変更履歴（8 章） |
 | `docs/SPEC.md` | 仕様（ソルバ、スケッチ、フィーチャー、命名、カーネル、アセンブリ、API（9 章）、UI） |
-| `docs/DECISIONS.md` | 設計判断 D1〜D71 と理由、未解決の課題 |
+| `docs/DECISIONS.md` | 設計判断 D1〜D73 と理由、未解決の課題 |
 | `docs/PHASE0.md` | usd-brep の調査結果（API の性質・落とし穴・ファイルの入出力） |
 
 ## 現在の状態（2026-11-14 の区切り）

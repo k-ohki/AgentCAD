@@ -8,7 +8,9 @@ import { docTitle, presentDoc } from "./windows.js";
 export const drawing = new DrawingEditor($("#sheet"), {
   rpc: (method, params) => act(method, params),
   onSelect: () => { renderDrawingTree(); renderDrawingProps(); },
-  onTool: (t) => { $("#btn-drw-dim").classList.toggle("on", t === "dim"); $("#btn-drw-proj").classList.toggle("on", t === "project"); },
+  onTool: (t) => { $("#btn-drw-dim").classList.toggle("on", t === "dim"); $("#btn-drw-proj").classList.toggle("on", t === "project");
+    $("#btn-drw-note").classList.toggle("on", t === "note"); },
+  ask: (message) => askText(message, ""),
   status: (t) => { $("#status-pick").textContent = t; },
   toast,
 });
@@ -38,7 +40,8 @@ function renderDrawingTree() {
   fill($("#drw-tree"),
     row(null, "▭", `シート（${st.sheet.size}、${st.sheet.scale_text}）`, "用紙・縮尺・名称"),
     st.views.map((v) => row(v.id, "◫", `${v.label}${v.scale_text ? `（${v.scale_text}）` : ""}`, v.parent ? `${v.parent} の投影図` : "モデルビュー")),
-    st.dims.map((d) => row(d.id, "↔", `寸法 ${d.text}${d.dangling ? "（参照切れ）" : ""}`, "寸法")));
+    st.dims.map((d) => d.kind === "note" ? row(d.id, "A", `注記 ${d.text}`, "注記")
+      : row(d.id, "↔", `寸法 ${d.text}${d.dangling ? "（参照切れ）" : ""}`, "寸法")));
 }
 
 function renderDrawingProps() {
@@ -69,6 +72,19 @@ function renderDrawingProps() {
         el("button", { onclick: () => act("drw.delete", { ids: [v.id] }) }, "ビューを削除")));
     return;
   }
+  if (d?.kind === "note") {
+    $("#prop-title").textContent = `注記: ${d.text}`;
+    const text = el("input", { type: "text", id: "drw-note-text", value: d.text, size: 18 });
+    text.addEventListener("change", () => { if (text.value.trim()) act("drw.note_set", { id: d.id, text: text.value }); });
+    const size = el("input", { type: "number", id: "drw-note-h", value: d.h ?? 3.5, min: 0.5, max: 50, step: 0.5 });
+    size.addEventListener("change", () => act("drw.note_set", { id: d.id, h: Number(size.value) }));
+    fill(box,
+      el("div", { class: "param" }, el("label", {}, "文字"), el("div", { class: "row" }, text)),
+      el("div", { class: "param" }, el("label", {}, "文字の高さ（mm）"), el("div", { class: "row" }, size)),
+      el("div", { class: "tag" }, "ドラッグで移動。ビューを動かすと一緒に動きます"),
+      el("div", { class: "btns" }, el("button", { onclick: () => act("drw.delete", { ids: [d.id] }) }, "注記を削除")));
+    return;
+  }
   if (d) {
     $("#prop-title").textContent = `寸法: ${d.text}`;
     fill(box,
@@ -91,7 +107,7 @@ function renderDrawingProps() {
     el("div", { class: "tag" }, `モデル: ${st.model.name ?? "開かれていません"} / 投影法: 第三角法`),
     st.error ? el("div", { class: "err" }, st.error) : null,
     el("div", { class: "hint" }, "ビューはドラッグで移動、ホイールで拡大・縮小、右ドラッグ（か何もない所のドラッグ）で画面を移動。"
-      + " ビューや寸法をクリックすると、ここに設定が出ます。モデル（パート）を変えると図面も追従します。"));
+      + " ビューや寸法をクリックすると、ここに設定が出ます。モデル（パート・アセンブリ）を変えると図面も追従します。"));
 }
 
 // ---------------------------------------------------------------- 図面のタブ
@@ -105,6 +121,7 @@ $("#btn-drw-proj").onclick = () => {
   drawing.setTool(drawing.tool === "project" ? "select" : "project");
 };
 $("#btn-drw-dim").onclick = () => drawing.setTool(drawing.tool === "dim" ? "select" : "dim");
+$("#btn-drw-note").onclick = () => drawing.setTool(drawing.tool === "note" ? "select" : "note");
 $("#btn-drw-fit").onclick = () => drawing.fit();
 
 async function exportDrawing(format, scale) {
@@ -121,13 +138,13 @@ $("#btn-drw-pdf").onclick = () => exportDrawing("pdf", "sheet");
 $("#btn-drw-dxf").onclick = () => exportDrawing("dxf", "sheet");
 $("#btn-drw-dxf-real").onclick = () => exportDrawing("dxf", "model");
 
-/** 新規 → 図面: 今のパート（アセンブリ・図面を開いているときは、開いているパートが 1 つならそれ）の図面を作る。 */
+/** 新規 → 図面: 今のパートかアセンブリ（図面を開いているときは、開いているパートが 1 つならそれ）の図面を作る。 */
 $("#btn-newdrw").onclick = async () => {
-  let model = app.state?.kind === "part" ? app.doc : null;
+  let model = ["part", "assembly"].includes(app.state?.kind) ? app.doc : null;
   if (!model) {
     const parts = (await rpcRaw("doc.list")).filter((d) => d.kind === "part");
     if (parts.length === 1) model = parts[0].doc;
-    else { toast(parts.length ? "図面にするパートを開いて（文書を切り替えて）から、新規 → 図面 を選んでください" : "図面にするパートがありません", true); return; }
+    else { toast(parts.length ? "図面にするパートかアセンブリを開いて（文書を切り替えて）から、新規 → 図面 を選んでください" : "図面にするパートがありません", true); return; }
   }
   if (app.state?.sketch) { try { await rpc("sketch.end"); } catch { /* 閉じていてもよい */ } }
   try { await presentDoc(await rpcRaw("drw.new", { model })); } catch (e) { toast(e.message, true); }
