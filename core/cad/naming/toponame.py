@@ -87,8 +87,15 @@ def _assign(table: dict, named: list[tuple[str, Any]], key):
             keys = [key(h) for h in hs]
             if all(k is not None for k in keys):
                 hs = [h for _, h in sorted(zip(keys, hs), key=lambda t: t[0])]
-        for i, h in enumerate(hs):
-            table[name if i == 0 else f"{name}#{i + 1}"] = h
+        table[name] = hs[0]
+        n = 2
+        for h in hs[1:]:
+            # 元の名前が既に "#n" 付きのこともある（例: 2 つのループの "start" と "start#2" の片方が分かれた）。
+            # 使われている名前・ほかのグループの名前は飛ばす（上書きすると面が名前表から消える）
+            while f"{name}#{n}" in table or f"{name}#{n}" in groups:
+                n += 1
+            table[f"{name}#{n}"] = h
+            n += 1
 
 
 def name_result(fid: str, kernel: Kernel, res: OpResult, inputs: list[TopoNames]) -> TopoNames:
