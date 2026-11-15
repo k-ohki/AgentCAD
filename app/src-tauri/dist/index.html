@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>AgentCAD</title>
+<style>
+  body { margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center;
+    font-family: "Segoe UI", "Yu Gothic UI", sans-serif; background: #eef1f5; color: #2b2f36; }
+  main { max-width: 720px; padding: 24px; }
+  h1 { font-size: 20px; margin: 0 0 8px; }
+  #status { color: #5b6470; }
+  #error { display: none; white-space: pre-wrap; background: #fff; border: 1px solid #d9a0a0; border-left: 4px solid #a32020;
+    border-radius: 6px; padding: 12px 14px; margin-top: 12px; font-size: 13px; line-height: 1.6; }
+  #hint { display: none; font-size: 12px; color: #5b6470; margin-top: 10px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<main>
+  <h1>AgentCAD</h1>
+  <div id="status">起動しています…（Python サーバを待っています）</div>
+  <div id="error"></div>
+  <div id="hint"></div>
+</main>
+<script>
+  // 殻（src/main.rs）が window.__AGENTCAD_SHELL__ = { port, error, log } を入れる。
+  // サーバが応答したら殻がこのページを UI（http://127.0.0.1:<port>/）に置き換える。
+  const shell = window.__AGENTCAD_SHELL__ || {};
+  window.agentcadShellError = (message) => {
+    document.getElementById("status").textContent = "起動できませんでした";
+    const e = document.getElementById("error"); e.textContent = message; e.style.display = "block";
+    const h = document.getElementById("hint"); h.style.display = "block";
+    h.textContent = "Python の出力: " + (shell.log || "（不明）")
+      + "\n確認すること: agentcad.config.json の python が usd-brep を入れた環境の python.exe を指しているか。"
+      + " run.bat（ブラウザ版）を実行すると同じエラーを直接見られます。";
+    h.style.whiteSpace = "pre-wrap";
+  };
+  if (shell.error) window.agentcadShellError(shell.error);
+</script>
+</body>
+</html>

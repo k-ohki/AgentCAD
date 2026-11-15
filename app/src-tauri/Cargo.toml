@@ -1,0 +1,18 @@
+[package]
+name = "agentcad"
+version = "0.1.0"
+description = "AgentCAD のデスクトップ用の殻（Python サーバを起動してウィンドウに UI を出す）"
+edition = "2021"
+publish = false
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# 起動・ビルドは app フォルダで npm run tauri dev / npm run tauri build（README）
+tauri = { version = "2", features = [] }
+serde_json = "1"
+
+[profile.release]
+opt-level = "s"
+strip = true

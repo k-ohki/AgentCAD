@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+target/
+.venv/
+scripts/*_report.txt
+agentcad.config.json
+Cargo.lock
+app/src-tauri/gen/
+
+# 利用者の手元だけのもの（公開しない）
+Data/
+*.bundle
+*.lnk
+memo.txt
+app/package-lock.json
+CLAUDE.local.md
